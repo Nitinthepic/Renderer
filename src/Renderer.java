@@ -19,7 +19,12 @@ public class Renderer {
 	private static final float Z_Far = 1000.f;
 
 	private Matrix4f projectionMatrix;
+	private Matrix4f worldMatrix;
+	private final Transformation transformation;
 
+	public Renderer(){
+		transformation = new Transformation();
+	}
 
 	public void init(Window window) throws Exception {
 		shaderProg = new Shader();
@@ -29,10 +34,8 @@ public class Renderer {
 				"/fragment.fs"));
 		shaderProg.link();
 
-		float aspectRatio = (float) window.getWidth() / window.getHeight();
-		projectionMatrix = new Matrix4f().perspective(Renderer.FOV,
-				aspectRatio, Renderer.Z_Near, Renderer.Z_Far);
 		shaderProg.createUniform("projectionMatrix");
+		shaderProg.createUniform("worldMatrix");
 	}
 
 	public void clear() {
@@ -45,7 +48,7 @@ public class Renderer {
 		}
 	}
 
-	public void render(Window window, Mesh mesh) {
+	public void render(Window window, GameObj[] gameItems) {
 		clear();
 		if (window.isResized()) {
 			glViewport(0, 0, window.getWidth(), window.getHeight());
@@ -53,16 +56,16 @@ public class Renderer {
 		}
 
 		shaderProg.bind();
+		projectionMatrix = transformation.getProjectionMatrix(FOV,
+				window.getWidth(),window.getHeight(),Z_Near, Z_Far);
 		shaderProg.setUniform("projectionMatrix", projectionMatrix);
 
-		glBindVertexArray(mesh.getVaoID());
-
-
-		glDrawElements(GL_TRIANGLES, mesh.getVertexCount(), GL_UNSIGNED_INT, 0);
-		System.out.println("woof");
-
-		glBindVertexArray(0);
-
+		for(GameObj item: gameItems){
+			worldMatrix = transformation.getWorldMatrix(item.getPosition(),
+					item.getRotation(), item.getScale());
+			shaderProg.setUniform("worldMatrix", worldMatrix);
+			item.getMesh().render();
+		}
 		shaderProg.unbind();
 	}
 }
