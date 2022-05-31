@@ -1,15 +1,6 @@
-import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
-import static org.lwjgl.opengl.GL11.glClear;
-import static org.lwjgl.opengl.GL11C.GL_DEPTH_BUFFER_BIT;
-import static org.lwjgl.opengl.GL15C.*;
-import static org.lwjgl.opengl.GL20C.*;
-import static org.lwjgl.opengl.GL30C.*;
-
+import static org.lwjgl.opengl.GL11.*;
 import org.joml.Matrix4f;
-import org.lwjgl.system.MemoryUtil;
 
-import java.nio.FloatBuffer;
-import java.util.Map;
 
 
 public class Renderer {
@@ -69,5 +60,5 @@ public class Renderer {
 		shaderProg.unbind();
 	}
 
-	
+
 }

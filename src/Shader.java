@@ -1,12 +1,9 @@
-import org.joml.Matrix4f;
-import org.lwjgl.system.MemoryStack;
-
 import java.nio.FloatBuffer;
 import java.util.HashMap;
 import java.util.Map;
-
+import org.joml.Matrix4f;
 import static org.lwjgl.opengl.GL20.*;
-import static org.lwjgl.opengl.GL20.*;
+import org.lwjgl.system.MemoryStack;
 
 public class Shader {
 	private final int programId;

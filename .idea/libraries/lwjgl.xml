@@ -1,10 +1,67 @@
 <component name="libraryTable">
   <library name="lwjgl">
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/lwjgl" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/joml-1.10.4.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/lwjgl-assimp-natives-macos-arm64.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/lwjgl-assimp-natives-windows.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/lwjgl-assimp.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/lwjgl-bgfx-natives-macos-arm64.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/lwjgl-bgfx-natives-windows.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/lwjgl-bgfx.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/lwjgl-glfw-natives-macos-arm64.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/lwjgl-glfw-natives-windows.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/lwjgl-glfw.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/lwjgl-nanovg-natives-macos-arm64.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/lwjgl-nanovg-natives-windows.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/lwjgl-nanovg.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/lwjgl-natives-macos-arm64.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/lwjgl-natives-windows.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/lwjgl-nuklear-natives-macos-arm64.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/lwjgl-nuklear-natives-windows.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/lwjgl-nuklear.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/lwjgl-openal-natives-macos-arm64.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/lwjgl-openal-natives-windows.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/lwjgl-openal.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/lwjgl-opengl-natives-macos-arm64.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/lwjgl-opengl-natives-windows.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/lwjgl-opengl.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/lwjgl-par-natives-macos-arm64.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/lwjgl-par-natives-windows.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/lwjgl-par.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/lwjgl-stb-natives-macos-arm64.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/lwjgl-stb-natives-windows.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/lwjgl-stb.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/lwjgl-vulkan-natives-macos-arm64.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/lwjgl-vulkan.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/lwjgl.jar!/" />
     </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-    <jarDirectory url="file://$PROJECT_DIR$/lwjgl" recursive="false" />
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/lwjgl-assimp-javadoc.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/lwjgl-bgfx-javadoc.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/lwjgl-glfw-javadoc.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/lwjgl-javadoc.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/lwjgl-nanovg-javadoc.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/lwjgl-nuklear-javadoc.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/lwjgl-openal-javadoc.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/lwjgl-opengl-javadoc.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/lwjgl-par-javadoc.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/lwjgl-stb-javadoc.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/lwjgl-vulkan-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/joml-1.10.4-sources.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/joml-1.10.4-sources.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/lwjgl-assimp-sources.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/lwjgl-bgfx-sources.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/lwjgl-glfw-sources.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/lwjgl-nanovg-sources.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/lwjgl-nuklear-sources.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/lwjgl-openal-sources.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/lwjgl-opengl-sources.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/lwjgl-par-sources.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/lwjgl-sources.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/lwjgl-stb-sources.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/lwjgl-release-3.3.1-custom (1)/lwjgl-vulkan-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

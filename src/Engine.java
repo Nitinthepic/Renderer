@@ -20,7 +20,6 @@ public class Engine implements Runnable {
 	public void run() {
 		try {
 			init();
-
 			gameLoop();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -64,7 +63,7 @@ public class Engine implements Runnable {
 	private void gameLoop() {
 		float loopStartTime;
 		float accumulator = 0f;
-		float interval = 1f / 30;
+		float interval = 1f / TARGET_UPS;
 		boolean running = true;
 
 		while (running && !window.shouldClose()) {
