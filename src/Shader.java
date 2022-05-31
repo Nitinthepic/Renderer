@@ -1,8 +1,12 @@
 import java.nio.FloatBuffer;
 import java.util.HashMap;
 import java.util.Map;
+
 import org.joml.Matrix4f;
+
 import static org.lwjgl.opengl.GL20.*;
+
+import org.joml.Vector3f;
 import org.lwjgl.system.MemoryStack;
 
 public class Shader {
@@ -43,24 +47,31 @@ public class Shader {
 		return shaderId;
 	}
 
-	public void createUniform(String uniformName) throws Exception{
+	public void createUniform(String uniformName) throws Exception {
 		int uniformLoc = glGetUniformLocation(programId, uniformName);
-		if(uniformLoc < 0 ){
+		if (uniformLoc < 0) {
 			throw new Exception("ILLEGAL LOCATION!");
 		}
-		uniforms.put(uniformName,uniformLoc);
+		uniforms.put(uniformName, uniformLoc);
 	}
 
-	public void setUniform(String uniformName, Matrix4f transMatrix){
-		try(MemoryStack stack = MemoryStack.stackPush()){
+	public void setUniform(String uniformName, Matrix4f transMatrix) {
+		try (MemoryStack stack = MemoryStack.stackPush()) {
 			FloatBuffer buffer = stack.mallocFloat(16);
 			transMatrix.get(buffer);
-			glUniformMatrix4fv(uniforms.get(uniformName),false,buffer);
+			glUniformMatrix4fv(uniforms.get(uniformName), false, buffer);
 		}
 	}
+
 	public void setUniform(String uniformName, int value) {
 		glUniform1i(uniforms.get(uniformName), value);
 	}
+
+
+	public void setUniform(String uniformName, Vector3f value) {
+		glUniform3f(uniforms.get(uniformName), value.x, value.y, value.z);
+	}
+
 	public void link() throws Exception {
 		glLinkProgram(programId);
 		if (glGetProgrami(programId, GL_LINK_STATUS) == 0)

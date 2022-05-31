@@ -1,6 +1,7 @@
 import static org.lwjgl.opengl.GL11.*;
-import org.joml.Matrix4f;
 
+import org.joml.Matrix4f;
+import org.lwjgl.system.MemoryUtil;
 
 
 public class Renderer {
@@ -10,7 +11,7 @@ public class Renderer {
 	private static final float Z_Far = 1000.f;
 	private final Transformation transformation;
 
-	public Renderer(){
+	public Renderer() {
 		transformation = new Transformation();
 	}
 
@@ -25,6 +26,8 @@ public class Renderer {
 		shaderProg.createUniform("projectionMatrix");
 		shaderProg.createUniform("modelViewMatrix");
 		shaderProg.createUniform("texture_sampler");
+		shaderProg.createUniform("color");
+		shaderProg.createUniform("useColor");
 	}
 
 	public void clear() {
@@ -46,16 +49,21 @@ public class Renderer {
 
 		shaderProg.bind();
 		Matrix4f projectionMatrix = transformation.getProjectionMatrix(FOV,
-				window.getWidth(),window.getHeight(),Z_Near, Z_Far);
+				window.getWidth(), window.getHeight(), Z_Near, Z_Far);
 		shaderProg.setUniform("projectionMatrix", projectionMatrix);
 
 		Matrix4f viewMatrix = transformation.getViewMatrix(camera);
 
 		shaderProg.setUniform("texture_sampler", 0);
-		for(GameObj item: gameItems){
+		for (GameObj item : gameItems) {
+			Mesh mesh = item.getMesh();
 			Matrix4f modelViewMatrix = transformation.getModelViewMatrix(item, viewMatrix);
+
 			shaderProg.setUniform("modelViewMatrix", modelViewMatrix);
-			item.getMesh().render();
+			shaderProg.setUniform("color", mesh.getColor());
+			shaderProg.setUniform("useColor", mesh.isTextured() ? 0 : 1);
+
+			mesh.render();
 		}
 		shaderProg.unbind();
 	}
