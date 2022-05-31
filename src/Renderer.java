@@ -17,9 +17,6 @@ public class Renderer {
 	private static final float FOV = (float) Math.toRadians(60.0f);
 	private static final float Z_Near = 0.01f;
 	private static final float Z_Far = 1000.f;
-
-	private Matrix4f projectionMatrix;
-	private Matrix4f worldMatrix;
 	private final Transformation transformation;
 
 	public Renderer(){
@@ -35,7 +32,8 @@ public class Renderer {
 		shaderProg.link();
 
 		shaderProg.createUniform("projectionMatrix");
-		shaderProg.createUniform("worldMatrix");
+		shaderProg.createUniform("modelViewMatrix");
+		shaderProg.createUniform("texture_sampler");
 	}
 
 	public void clear() {
@@ -48,7 +46,7 @@ public class Renderer {
 		}
 	}
 
-	public void render(Window window, GameObj[] gameItems) {
+	public void render(Window window, Camera camera, GameObj[] gameItems) {
 		clear();
 		if (window.isResized()) {
 			glViewport(0, 0, window.getWidth(), window.getHeight());
@@ -56,16 +54,20 @@ public class Renderer {
 		}
 
 		shaderProg.bind();
-		projectionMatrix = transformation.getProjectionMatrix(FOV,
+		Matrix4f projectionMatrix = transformation.getProjectionMatrix(FOV,
 				window.getWidth(),window.getHeight(),Z_Near, Z_Far);
 		shaderProg.setUniform("projectionMatrix", projectionMatrix);
 
+		Matrix4f viewMatrix = transformation.getViewMatrix(camera);
+
+		shaderProg.setUniform("texture_sampler", 0);
 		for(GameObj item: gameItems){
-			worldMatrix = transformation.getWorldMatrix(item.getPosition(),
-					item.getRotation(), item.getScale());
-			shaderProg.setUniform("worldMatrix", worldMatrix);
+			Matrix4f modelViewMatrix = transformation.getModelViewMatrix(item, viewMatrix);
+			shaderProg.setUniform("modelViewMatrix", modelViewMatrix);
 			item.getMesh().render();
 		}
 		shaderProg.unbind();
 	}
+
+	
 }

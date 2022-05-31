@@ -1,55 +1,57 @@
 public class Engine implements Runnable {
 
-	private final Thread gameLoopThread;
+	public static final int TARGET_FPS = 75;
+
+	public static final int TARGET_UPS = 30;
 	private final Window window;
 	private final ILogic logic;
 	private final Timer timer;
+	private final MouseInput mouseInput;
 
 	public Engine(String windowTitle, int width, int height, boolean vSync,
 				  ILogic logic) {
-		this.gameLoopThread = new Thread(this, "GAME_LOOP_THREAD");
 		this.window = new Window(windowTitle, width, height, vSync);
 		this.logic = logic;
+		this.mouseInput = new MouseInput();
 		timer = new Timer();
-	}
-
-	public void start() {
-		gameLoopThread.start();
 	}
 
 	@Override
 	public void run() {
 		try {
 			init();
+
 			gameLoop();
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			e.printStackTrace();
 		} finally {
-			logic.cleanup();
+			cleanup();
 		}
 	}
 
 	private void init() throws Exception {
 		window.init();
 		timer.init();
+		mouseInput.init(window);
 		logic.init(window);
 	}
 
-	private void input(){
-		logic.input(window);
+	private void input() {
+		mouseInput.input(window);
+		logic.input(window,mouseInput);
 	}
 
-	private void update(float interval){
-		logic.update(interval);
+	private void update(float interval) {
+		logic.update(interval,mouseInput);
 	}
 
-	private void render(){
+	private void render() {
 		logic.render(window);
 		window.update();
 	}
 
 	private void sync() {
-		float loopSlot = 1f / 60;
+		float loopSlot = 1f / TARGET_FPS;
 		double endTime = timer.getLastLoopTime() + loopSlot;
 		while (timer.getTime() < endTime) {
 			try {
@@ -71,13 +73,17 @@ public class Engine implements Runnable {
 
 			input();
 
-			while(accumulator>=interval){
+			while (accumulator >= interval) {
 				update(interval);
 				accumulator -= interval;
 			}
 			render();
-			if(!window.isvSyncEnabled())
+			if (!window.isvSyncEnabled())
 				sync();
 		}
+	}
+
+	protected void cleanup() {
+		logic.cleanup();
 	}
 }

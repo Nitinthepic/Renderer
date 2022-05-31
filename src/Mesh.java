@@ -2,6 +2,8 @@ import org.lwjgl.system.MemoryUtil;
 
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.lwjgl.opengl.GL15C.*;
 import static org.lwjgl.opengl.GL20C.glDisableVertexAttribArray;
@@ -10,24 +12,27 @@ import static org.lwjgl.opengl.GL30C.*;
 
 public class Mesh {
 	private final int vaoID;
-	private final int vboID;
+	private final List<Integer> vboIDList;
 
 	private final int idxVboID;
-	private final int colorVboID;
+	private final Texture texture;
 	private final int vertexCount;
 
-	public Mesh(float[] positions, float[] colors, int[] indices){
+	public Mesh(float[] positions, float[] textCoordinates, int[] indices,
+				Texture texture){
 		FloatBuffer verticesBuffer = null;
 		IntBuffer indicesBuffer = null;
-		FloatBuffer colorBuffer = null;
+		FloatBuffer textCoordsBuffer = null;
 		try{
-
+			this.texture = texture;
 			vertexCount =indices.length;
+			vboIDList = new ArrayList<>();
 
 			vaoID = glGenVertexArrays();
 			glBindVertexArray(vaoID);
 
-			vboID=glGenBuffers();
+			int vboID=glGenBuffers();
+			vboIDList.add(vboID);
 			verticesBuffer = MemoryUtil.memAllocFloat(positions.length);
 			verticesBuffer.put(positions).flip();
 			glBindBuffer(GL_ARRAY_BUFFER,vboID);
@@ -35,13 +40,15 @@ public class Mesh {
 			glEnableVertexAttribArray(0);
 			glVertexAttribPointer(0, 3, GL_FLOAT, false, 0, 0);
 
-			colorVboID = glGenBuffers();
-			colorBuffer = MemoryUtil.memAllocFloat(colors.length);
-			colorBuffer.put(colors).flip();
-			glBindBuffer(GL_ARRAY_BUFFER, colorVboID);
-			glBufferData(GL_ARRAY_BUFFER, colorBuffer, GL_STATIC_DRAW);
+			vboID = glGenBuffers();
+			vboIDList.add(vboID);
+			textCoordsBuffer = MemoryUtil.memAllocFloat(textCoordinates.length);
+			textCoordsBuffer.put(textCoordinates).flip();
+			glBindBuffer(GL_ARRAY_BUFFER, vboID);
+			glBufferData(GL_ARRAY_BUFFER, textCoordsBuffer, GL_STATIC_DRAW);
 			glEnableVertexAttribArray(1);
-			glVertexAttribPointer(1,3,GL_FLOAT, false,0,0);
+			glVertexAttribPointer(1,2,GL_FLOAT, false,0,0);
+			System.out.println("dog");
 
 			idxVboID = glGenBuffers();
 			indicesBuffer = MemoryUtil.memAllocInt(indices.length);
@@ -59,8 +66,8 @@ public class Mesh {
 			if(indicesBuffer!=null){
 				MemoryUtil.memFree(indicesBuffer);
 			}
-			if(colorBuffer!=null){
-				MemoryUtil.memFree(colorBuffer);
+			if(textCoordsBuffer!=null){
+				MemoryUtil.memFree(textCoordsBuffer);
 			}
 		}
 	}
@@ -69,9 +76,6 @@ public class Mesh {
 		return vaoID;
 	}
 
-	public int getVboID() {
-		return vboID;
-	}
 
 	public int getVertexCount() {
 		return vertexCount;
@@ -80,15 +84,19 @@ public class Mesh {
 	public void cleanUp(){
 		glDisableVertexAttribArray(0);
 		glBindBuffer(GL_ARRAY_BUFFER,0);
+		for (int vboID: vboIDList) {
+			glDeleteBuffers(vboID);
+		}
 
-		glDeleteBuffers(vboID);
-		glDeleteBuffers(idxVboID);
+		texture.cleanup();
 
 		glBindVertexArray(0);
 		glDeleteVertexArrays(vaoID);
 	}
 
 	public void render() {
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, texture.getID());
 		// Draw the mesh
 		glBindVertexArray(getVaoID());
 		glEnableVertexAttribArray(0);

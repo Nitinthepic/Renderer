@@ -13,5 +13,6 @@
     <orderEntry type="library" exported="" name="lwjgl-opengl-javadoc" level="project" />
     <orderEntry type="library" name="joml" level="project" />
     <orderEntry type="library" name="l33tlabs.twl.pngdecoder" level="project" />
+    <orderEntry type="library" name="lwjgl1" level="project" />
   </component>
 </module>
