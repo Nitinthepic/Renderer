@@ -36,12 +36,20 @@ public class PlaceHolderGame implements ILogic {
 		gameItem.setScale(0.5f);
 		gameItem.setPosition(0, 0, -2);
 
-		Mesh mesh1 = OBJLoader.loadMesh("/models/bunny.obj");
-		GameObj gameItem1 = new GameObj(mesh1);
-		gameItem.setScale(1.5f);
-		gameItem.setPosition(0, 0, -4);
+		Mesh mesh1 = OBJLoader.loadMesh("/models/shine.obj");
 
-		gameItems = new GameObj[]{gameItem, gameItem1};
+		GameObj gameItem1 = new GameObj(mesh1);
+		gameItem1.setScale(1.5f);
+		gameItem1.setPosition(0, 0, -4);
+
+		Mesh mesh2 = OBJLoader.loadMesh("/models/sphere.obj");
+
+		GameObj gameItem2 = new GameObj(mesh2);
+		gameItem2.setScale(1.5f);
+		gameItem2.setPosition(0, 0, -10);
+
+
+		gameItems = new GameObj[]{gameItem, gameItem1, gameItem2};
 	}
 
 	@Override
