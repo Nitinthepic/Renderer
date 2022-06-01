@@ -10,12 +10,7 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
 import static org.lwjgl.opengl.GL13.glActiveTexture;
 import static org.lwjgl.opengl.GL15.*;
-
-import static org.lwjgl.opengl.GL20.glDisableVertexAttribArray;
-import static org.lwjgl.opengl.GL20.glEnableVertexAttribArray;
-import static org.lwjgl.opengl.GL20.glVertexAttribPointer;
-
-
+import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.opengl.GL30.*;
 
 
@@ -24,7 +19,7 @@ public class Mesh {
 	private final int vaoID;
 	private final List<Integer> vboIDList;
 
-	private Texture texture;
+	private Material material;
 	private final int vertexCount;
 	private Vector3f color;
 
@@ -110,6 +105,7 @@ public class Mesh {
 		for (int vboID : vboIDList) {
 			glDeleteBuffers(vboID);
 		}
+		Texture texture = material.getTexture();
 		if (texture != null)
 			texture.cleanup();
 
@@ -118,6 +114,7 @@ public class Mesh {
 	}
 
 	public void render() {
+		Texture texture = material.getTexture();
 		if (texture != null) {
 			glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D, texture.getID());
@@ -136,21 +133,18 @@ public class Mesh {
 		return vboIDList;
 	}
 
-	public Texture getTexture() {
-		return texture;
+	public Material getMaterial() {
+		return material;
 	}
 
-	public void setTexture(Texture texture) {
-		this.texture = texture;
+	public void setMaterial(Material material) {
+		this.material = material;
 	}
 
 	public Vector3f getColor() {
 		return color;
 	}
 
-	public boolean isTextured() {
-		return this.texture != null;
-	}
 
 	public void setColor(Vector3f color) {
 		this.color = color;
