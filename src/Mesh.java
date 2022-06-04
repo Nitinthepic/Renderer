@@ -113,6 +113,21 @@ public class Mesh {
 		glDeleteVertexArrays(vaoID);
 	}
 
+
+	public void deleteBuffers() {
+		glDisableVertexAttribArray(0);
+
+		// Delete the VBOs
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		for (int vboId : vboIDList) {
+			glDeleteBuffers(vboId);
+		}
+
+		// Delete the VAO
+		glBindVertexArray(0);
+		glDeleteVertexArrays(vaoID);
+	}
+
 	public void render() {
 		Texture texture = material.getTexture();
 		if (texture != null) {

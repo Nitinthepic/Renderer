@@ -1,16 +1,20 @@
 import org.joml.Vector3f;
 
 public class GameObj {
-	private final Mesh mesh;
+	private Mesh mesh;
 	private final Vector3f position;
 	private float scale;
 	private final Vector3f rotation;
-	
-	public GameObj(Mesh mesh){
+
+	public GameObj(Mesh mesh) {
+		this();
 		this.mesh = mesh;
-		position = new Vector3f(0,0,0);
+	}
+
+	public GameObj() {
+		position = new Vector3f(0, 0, 0);
 		scale = 1;
-		rotation = new Vector3f(0,0,0);
+		rotation = new Vector3f(0, 0, 0);
 	}
 
 	public Mesh getMesh() {
@@ -39,9 +43,13 @@ public class GameObj {
 		rotation.z = z;
 	}
 
-	public void setPosition(float x , float y , float z){
+	public void setPosition(float x, float y, float z) {
 		position.x = x;
 		position.y = y;
 		position.z = z;
+	}
+
+	public void setMesh(Mesh mesh) {
+		this.mesh = mesh;
 	}
 }

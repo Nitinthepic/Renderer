@@ -23,11 +23,19 @@ public class Utils {
 							 .forName(Utils.class.getName())
 							 .getResourceAsStream(filePath)))) {
 			String line;
-			while((line=br.readLine())!=null){
+			while ((line = br.readLine()) != null) {
 				lines.add(line);
 			}
 		}
 		return lines;
+	}
+
+	public static float[] listToArray(List<Float> list) {
+		float[] returnValue = new float[list.size()];
+		for (int i = 0; i < list.size(); i++) {
+			returnValue[i] = list.get(i);
+		}
+		return returnValue;
 	}
 
 }

@@ -7,6 +7,7 @@ import static org.lwjgl.opengl.GL11.*;
 
 public class Renderer {
 	private Shader shaderProg;
+	private Shader HUDProg;
 	private static final float FOV = (float) Math.toRadians(60.0f);
 	private static final float Z_Near = 0.01f;
 	private static final float Z_Far = 1000.f;
@@ -42,6 +43,20 @@ public class Renderer {
 		shaderProg.createPointLightListUniform("pointLights", MAX_POINT_LIGHTS);
 		shaderProg.createSpotLightListUniform("spotLights", MAX_SPOT_LIGHTS);
 		shaderProg.createDirectionalLightUniform("directionalLight");
+
+		setUpHUDShader();
+	}
+
+	private void setUpHUDShader() throws Exception {
+		HUDProg = new Shader();
+		HUDProg.createVertexShader(Utils.loadResource("/resources/HUDvertex" +
+				".vs"));
+		HUDProg.createFragmentShader(Utils.loadResource("/resources" +
+				"/HUDfragment.fs"));
+		HUDProg.link();
+
+		HUDProg.createUniform("projModelMatrix");
+		HUDProg.createUniform("color");
 	}
 
 	public void clear() {
@@ -57,7 +72,7 @@ public class Renderer {
 	public void render(Window window, Camera camera, GameObj[] gameItems,
 					   Vector3f ambientLight, PointLight[] pointLights,
 					   SpotLight[] spotLights,
-					   DirectionalLight directionalLight) {
+					   DirectionalLight directionalLight, IHUD hud) {
 		clear();
 		if (window.isResized()) {
 			glViewport(0, 0, window.getWidth(), window.getHeight());
@@ -84,6 +99,7 @@ public class Renderer {
 
 			mesh.render();
 		}
+		renderHUD(window, hud);
 		shaderProg.unbind();
 	}
 
@@ -132,5 +148,23 @@ public class Renderer {
 		dir.mul(viewMatrix);
 		currentDirectionLight.setDirection(new Vector3f(dir.x, dir.y, dir.z));
 		shaderProg.setUniform("directionalLight", currentDirectionLight);
+
+
+	}
+
+	private void renderHUD(Window window, IHUD hud) {
+		HUDProg.bind();
+		Matrix4f orto = transformation.getOrthoProjectionMatrix(0,
+				window.getWidth(), window.getHeight(), 0);
+		for (GameObj obj : hud.getGameItems()) {
+			Mesh mesh = obj.getMesh();
+			Matrix4f projModelMatrix =
+					transformation.getOrthoProjModelMatrix(obj, orto);
+			HUDProg.setUniform("projModelMatrix", projModelMatrix);
+			HUDProg.setUniform("color", obj.getMesh().getMaterial().getAmbientColor());
+
+			mesh.render();
+		}
+		HUDProg.unbind();
 	}
 }

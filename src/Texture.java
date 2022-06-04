@@ -2,9 +2,6 @@ import de.matthiasmann.twl.utils.PNGDecoder;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
-import java.nio.IntBuffer;
-
-import org.lwjgl.system.MemoryStack;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL30.glGenerateMipmap;
@@ -12,9 +9,15 @@ import static org.lwjgl.opengl.GL30.glGenerateMipmap;
 
 public class Texture {
 	private final int id;
+	private int width;
+	private int height;
 
 	public Texture(String fileName) throws IOException {
 		this(loadTexture(fileName));
+		PNGDecoder decoder = new PNGDecoder(
+				Texture.class.getResourceAsStream(fileName));
+		width = decoder.getWidth();
+		height = decoder.getHeight();
 	}
 
 	public Texture(int id) {
@@ -57,5 +60,21 @@ public class Texture {
 
 	public void cleanup() {
 		glDeleteTextures(id);
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
 	}
 }

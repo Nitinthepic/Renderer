@@ -148,15 +148,15 @@ void main()
     mvPosVertex,
     mvNormalVertex);
 
-    for(int i = 0; i < MAX_POINT_LIGHTS; i++){
-        if(pointLights[i].intensity>0){
+    for (int i = 0; i < MAX_POINT_LIGHTS; i++){
+        if (pointLights[i].intensity>0){
             diffuseSpecularComp += calcPointLight(pointLights[i],
             mvPosVertex, mvNormalVertex);
         }
     }
 
-    for(int i = 0; i < MAX_SPOT_LIGHTS; i++){
-        if(spotLights[i].pointLight.intensity>0){
+    for (int i = 0; i < MAX_SPOT_LIGHTS; i++){
+        if (spotLights[i].pointLight.intensity>0){
             diffuseSpecularComp += calcSpotLight(spotLights[i],
             mvPosVertex, mvNormalVertex);
         }

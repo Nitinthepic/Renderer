@@ -7,7 +7,7 @@ import static org.lwjgl.glfw.GLFW.*;
 
 public class PlaceHolderGame implements ILogic {
 
-
+	private IHUD HUD;
 	private static final float MOUSE_SENSITIVITY = 0.2f;
 
 	private final Vector3f cameraInc;
@@ -73,8 +73,9 @@ public class PlaceHolderGame implements ILogic {
 
 		// Point Light
 		Vector3f lightPosition = new Vector3f(0, 0, 1);
-		float lightIntensity = 10.0f;
-		PointLight pointLight = new PointLight(new Vector3f(1, 1, 1), lightPosition, lightIntensity);
+		float lightIntensity = 1.0f;
+		PointLight pointLight = new PointLight(new Vector3f(1, 1, 1),
+				lightPosition, 0f);
 		PointLight.Attenuation att = new PointLight.Attenuation(0.0f, 0.0f, 1.0f);
 		pointLight.setAttenuation(att);
 		pointLightList = new PointLight[]{pointLight};
@@ -91,6 +92,8 @@ public class PlaceHolderGame implements ILogic {
 
 		lightPosition = new Vector3f(-1, 0, 0);
 		directionalLight = new DirectionalLight(new Vector3f(1, 1, 1), lightPosition, lightIntensity);
+
+		this.HUD = new HUD("Youtairen");
 	}
 
 	@Override
@@ -129,14 +132,14 @@ public class PlaceHolderGame implements ILogic {
 			camera.moveRotation(rotVec.x * MOUSE_SENSITIVITY, rotVec.y * MOUSE_SENSITIVITY, 0);
 		}
 		updateLight();
-		System.out.println(camera.getPosition());
+		HUD.setStatusText(camera.getPosition().toString().substring(1).strip());
 	}
 
 	@Override
 	public void render(Window window) {
 		renderer.render(window, camera, gameItems, ambientLight,
 				pointLightList, spotLightList,
-				directionalLight);
+				directionalLight, this.HUD);
 	}
 
 	private void updateLight() {
@@ -159,7 +162,7 @@ public class PlaceHolderGame implements ILogic {
 				lightAngle = -90;
 			}
 		} else if (lightAngle <= -80 || lightAngle >= 80) {
-			float factor = 1 - (float) (Math.abs(lightAngle) - 80) / 10f;
+			float factor = 1 - (Math.abs(lightAngle) - 80) / 10f;
 			directionalLight.setIntensity(factor);
 			directionalLight.getColor().y = Math.max(factor, 0.9f);
 			directionalLight.getColor().z = Math.max(factor, 0.5f);
